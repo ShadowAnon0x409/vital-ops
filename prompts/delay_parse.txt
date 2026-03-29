@@ -1,0 +1,1 @@
+{"model":"claude-sonnet-4-20250514","max_tokens":10,"messages":[{"role":"user","content":"Extract the number of delay hours from this message. Respond with ONLY the number, nothing else. No text, no JSON, no formatting. Example: if the message says 2 hours late, respond with: 2\n\nMessage: {{2.Body}}"}]}
