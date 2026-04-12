@@ -1003,4 +1003,19 @@ function triggerCalUpdate() {
     setTimeout(function() {
       document.getElementById(id).classList.add('updated');
       var tagEl = document.getElementById(id + '-tag');
-      tagEl.textContent = 'Updated ✓'; tagEl.className = 'cal-tag ta
+      tagEl.textContent = 'Updated ✓'; tagEl.className = 'cal-tag tag-done';
+      var chk = document.getElementById(id + '-check');
+      chk.textContent = '✓'; chk.classList.add('show');
+    }, i * 400);
+  });
+
+  setTimeout(function() {
+    btn.textContent = 'Reset ↺';
+    calUpdated = true;
+  }, 1600);
+}
+
+document.getElementById('calBtn').addEventListener('click', triggerCalUpdate);
+</script>
+</body>
+</html>
