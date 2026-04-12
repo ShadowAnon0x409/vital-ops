@@ -5,12 +5,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Vital Ops — AI Operations for Trades</title>
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;700&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300&family=JetBrains+Mono:wght@400;700&display=swap');
 
   /* ── THEME TOKENS ─────────────────────────────── */
   :root {
     --bg:       #0d0d0d;
     --surface:  #161616;
+    --surface2: #1e1e1e;
     --border:   #2a2a2a;
     --accent:   #f5a623;
     --accent2:  #d4891a;
@@ -20,42 +21,23 @@
     --tag-text: #f5a623;
   }
   [data-theme="green"] {
-    --bg:       #050f08;
-    --surface:  #0b1a10;
-    --border:   #1a3322;
-    --accent:   #00ff6a;
-    --accent2:  #00cc55;
-    --text:     #d0ffe0;
-    --muted:    #4a8a60;
-    --tag-bg:   #0d2018;
-    --tag-text: #00ff6a;
+    --bg:       #050f08; --surface: #0b1a10; --surface2: #102015;
+    --border:   #1a3322; --accent: #00ff6a; --accent2: #00cc55;
+    --text:     #d0ffe0; --muted: #4a8a60; --tag-bg: #0d2018; --tag-text: #00ff6a;
   }
   [data-theme="blue"] {
-    --bg:       #020810;
-    --surface:  #060f1e;
-    --border:   #0e2040;
-    --accent:   #00d4ff;
-    --accent2:  #0099cc;
-    --text:     #cef0ff;
-    --muted:    #3a7a99;
-    --tag-bg:   #061525;
-    --tag-text: #00d4ff;
+    --bg:       #020810; --surface: #060f1e; --surface2: #0a1628;
+    --border:   #0e2040; --accent: #00d4ff; --accent2: #0099cc;
+    --text:     #cef0ff; --muted: #3a7a99; --tag-bg: #061525; --tag-text: #00d4ff;
   }
   [data-theme="clean"] {
-    --bg:       #f8f6f1;
-    --surface:  #ffffff;
-    --border:   #e0dbd0;
-    --accent:   #c0392b;
-    --accent2:  #962d22;
-    --text:     #1a1a1a;
-    --muted:    #888;
-    --tag-bg:   #fdf0ee;
-    --tag-text: #c0392b;
+    --bg:       #f4f1eb; --surface: #ffffff; --surface2: #f9f7f3;
+    --border:   #e0dbd0; --accent: #c0392b; --accent2: #962d22;
+    --text:     #1a1a1a; --muted: #777; --tag-bg: #fdf0ee; --tag-text: #c0392b;
   }
 
-  /* ── RESET ────────────────────────────────────── */
+  /* ── RESET ─────────────────────────────────────── */
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
   html { scroll-behavior: smooth; }
 
   body {
@@ -68,49 +50,30 @@
     overflow-x: hidden;
   }
 
-  /* ── NOISE OVERLAY ────────────────────────────── */
+  /* Noise texture */
   body::before {
     content: '';
-    position: fixed;
-    inset: 0;
+    position: fixed; inset: 0;
     background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
-    pointer-events: none;
-    z-index: 0;
-    opacity: 0.4;
+    pointer-events: none; z-index: 0; opacity: 0.4;
   }
 
-  /* ── LAYOUT ───────────────────────────────────── */
-  .container {
-    max-width: 1080px;
-    margin: 0 auto;
-    padding: 0 24px;
-    position: relative;
-    z-index: 1;
-  }
-
+  /* ── LAYOUT ────────────────────────────────────── */
+  .container { max-width: 1080px; margin: 0 auto; padding: 0 24px; position: relative; z-index: 1; }
   section { padding: 80px 0; }
+  .divider { height: 1px; background: linear-gradient(90deg, transparent, var(--border), transparent); }
 
-  /* ── THEME SWITCHER ───────────────────────────── */
+  /* ── THEME SWITCHER ────────────────────────────── */
   .theme-bar {
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    display: flex;
-    gap: 8px;
-    z-index: 999;
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 40px;
-    padding: 6px 10px;
+    position: fixed; top: 20px; right: 20px;
+    display: flex; gap: 8px; z-index: 999;
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 40px; padding: 6px 10px;
     backdrop-filter: blur(8px);
   }
-
   .theme-dot {
-    width: 22px;
-    height: 22px;
-    border-radius: 50%;
-    border: 2px solid transparent;
-    cursor: pointer;
+    width: 22px; height: 22px; border-radius: 50%;
+    border: 2px solid transparent; cursor: pointer;
     transition: transform 0.2s, border-color 0.2s;
     -webkit-tap-highlight-color: transparent;
     touch-action: manipulation;
@@ -120,518 +83,429 @@
   .dot-amber { background: #f5a623; }
   .dot-green { background: #00ff6a; }
   .dot-blue  { background: #00d4ff; }
-  .dot-clean { background: #f8f6f1; border: 2px solid #ccc; }
+  .dot-clean { background: #e8e4dc; border: 2px solid #ccc; }
 
-  /* ── HEADER / HERO ────────────────────────────── */
+  /* ── HERO ──────────────────────────────────────── */
   .hero {
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    padding: 100px 0 60px;
-    position: relative;
+    min-height: 100vh; display: flex; flex-direction: column;
+    justify-content: center; padding: 100px 0 60px; position: relative;
   }
-
   .hero-eyebrow {
     font-family: 'JetBrains Mono', monospace;
-    font-size: 11px;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    color: var(--accent);
-    margin-bottom: 24px;
-    opacity: 0;
-    animation: fadeUp 0.6s 0.1s forwards;
+    font-size: 11px; letter-spacing: 3px; text-transform: uppercase;
+    color: var(--accent); margin-bottom: 24px;
+    opacity: 0; animation: fadeUp 0.6s 0.1s forwards;
   }
-
   .hero-headline {
     font-family: 'Bebas Neue', sans-serif;
     font-size: clamp(64px, 10vw, 130px);
-    line-height: 0.92;
-    letter-spacing: -1px;
-    color: var(--text);
+    line-height: 0.92; letter-spacing: -1px; color: var(--text);
     margin-bottom: 12px;
-    opacity: 0;
-    animation: fadeUp 0.7s 0.2s forwards;
+    opacity: 0; animation: fadeUp 0.7s 0.2s forwards;
   }
-
-  .hero-headline span {
-    color: var(--accent);
-    display: block;
-  }
-
+  .hero-headline span { color: var(--accent); display: block; }
   .hero-sub {
-    font-size: clamp(16px, 2vw, 20px);
-    font-weight: 300;
-    color: var(--muted);
-    max-width: 560px;
-    margin: 28px 0 40px;
-    opacity: 0;
-    animation: fadeUp 0.7s 0.35s forwards;
+    font-size: clamp(16px, 2vw, 20px); font-weight: 300;
+    color: var(--muted); max-width: 560px; margin: 28px 0 40px;
+    opacity: 0; animation: fadeUp 0.7s 0.35s forwards;
   }
-
   .hero-tagline {
     font-family: 'JetBrains Mono', monospace;
-    font-size: clamp(13px, 1.6vw, 17px);
-    color: var(--accent);
-    border-left: 3px solid var(--accent);
-    padding-left: 16px;
-    margin-bottom: 48px;
-    font-style: italic;
-    opacity: 0;
-    animation: fadeUp 0.7s 0.45s forwards;
+    font-size: clamp(13px, 1.6vw, 17px); color: var(--accent);
+    border-left: 3px solid var(--accent); padding-left: 16px;
+    margin-bottom: 48px; font-style: italic;
+    opacity: 0; animation: fadeUp 0.7s 0.45s forwards;
   }
-
   .hero-cta-row {
-    display: flex;
-    gap: 16px;
-    flex-wrap: wrap;
-    opacity: 0;
-    animation: fadeUp 0.7s 0.55s forwards;
+    display: flex; gap: 16px; flex-wrap: wrap;
+    opacity: 0; animation: fadeUp 0.7s 0.55s forwards;
   }
 
+  /* ── BUTTONS ───────────────────────────────────── */
   .btn-primary {
-    background: var(--accent);
-    color: #000;
-    font-family: 'DM Sans', sans-serif;
-    font-weight: 600;
-    font-size: 15px;
-    letter-spacing: 0.5px;
-    padding: 14px 32px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    text-decoration: none;
-    display: inline-block;
+    background: var(--accent); color: #000;
+    font-family: 'DM Sans', sans-serif; font-weight: 600;
+    font-size: 15px; letter-spacing: 0.5px;
+    padding: 14px 32px; border: none; border-radius: 4px;
+    cursor: pointer; text-decoration: none; display: inline-block;
     transition: background 0.2s, transform 0.15s;
   }
   .btn-primary:hover { background: var(--accent2); transform: translateY(-1px); }
-
   .btn-ghost {
-    background: transparent;
-    color: var(--text);
-    font-family: 'DM Sans', sans-serif;
-    font-weight: 500;
-    font-size: 15px;
-    padding: 14px 32px;
-    border: 1px solid var(--border);
-    border-radius: 4px;
-    cursor: pointer;
-    text-decoration: none;
-    display: inline-block;
+    background: transparent; color: var(--text);
+    font-family: 'DM Sans', sans-serif; font-weight: 500; font-size: 15px;
+    padding: 14px 32px; border: 1px solid var(--border); border-radius: 4px;
+    cursor: pointer; text-decoration: none; display: inline-block;
     transition: border-color 0.2s, transform 0.15s;
   }
   .btn-ghost:hover { border-color: var(--accent); transform: translateY(-1px); }
 
-  /* ── DIVIDER ──────────────────────────────────── */
-  .divider {
-    height: 1px;
-    background: linear-gradient(90deg, transparent, var(--border), transparent);
-    margin: 0;
-  }
-
-  /* ── PAIN SECTION ─────────────────────────────── */
-  .pain-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-    gap: 24px;
-    margin-top: 48px;
-  }
-
-  .pain-card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    padding: 28px;
-    transition: border-color 0.2s;
-  }
-  .pain-card:hover { border-color: var(--accent); }
-
-  .pain-icon {
-    font-size: 28px;
-    margin-bottom: 14px;
-  }
-
-  .pain-card h3 {
-    font-family: 'DM Sans', sans-serif;
-    font-weight: 600;
-    font-size: 16px;
-    margin-bottom: 8px;
-    color: var(--text);
-  }
-
-  .pain-card p {
-    font-size: 14px;
-    color: var(--muted);
-    line-height: 1.6;
-  }
-
-  /* ── SECTION LABELS ───────────────────────────── */
+  /* ── SECTION LABELS ────────────────────────────── */
   .section-label {
     font-family: 'JetBrains Mono', monospace;
-    font-size: 11px;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    color: var(--accent);
-    margin-bottom: 16px;
-    display: block;
+    font-size: 11px; letter-spacing: 3px; text-transform: uppercase;
+    color: var(--accent); margin-bottom: 16px; display: block;
   }
-
   .section-title {
     font-family: 'Bebas Neue', sans-serif;
-    font-size: clamp(40px, 6vw, 72px);
-    line-height: 1;
-    color: var(--text);
-    margin-bottom: 20px;
+    font-size: clamp(40px, 6vw, 72px); line-height: 1;
+    color: var(--text); margin-bottom: 20px;
   }
-
   .section-desc {
-    font-size: 17px;
-    color: var(--muted);
-    max-width: 560px;
-    line-height: 1.7;
+    font-size: 17px; color: var(--muted); max-width: 560px; line-height: 1.7;
   }
 
-  /* ── STAGES ───────────────────────────────────── */
-  .stages { display: flex; flex-direction: column; gap: 2px; margin-top: 48px; }
+  /* ── PAIN GRID ─────────────────────────────────── */
+  .pain-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 24px; margin-top: 48px;
+  }
+  .pain-card {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 8px; padding: 28px; transition: border-color 0.2s;
+  }
+  .pain-card:hover { border-color: var(--accent); }
+  .pain-icon { font-size: 28px; margin-bottom: 14px; }
+  .pain-card h3 { font-weight: 600; font-size: 16px; margin-bottom: 8px; color: var(--text); }
+  .pain-card p { font-size: 14px; color: var(--muted); line-height: 1.6; }
 
-  .stage {
+  /* ── SMS DEMO ──────────────────────────────────── */
+  .demo-wrap {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 48px; align-items: start; margin-top: 56px;
+  }
+
+  /* Phone shell */
+  .phone-shell {
     background: var(--surface);
     border: 1px solid var(--border);
-    border-radius: 8px;
-    padding: 36px 40px;
-    display: grid;
-    grid-template-columns: 80px 1fr auto;
-    gap: 32px;
-    align-items: start;
+    border-radius: 36px;
+    padding: 16px;
+    max-width: 320px;
+    margin: 0 auto;
+    box-shadow: 0 24px 64px rgba(0,0,0,0.4);
+    position: relative;
+  }
+  .phone-notch {
+    width: 100px; height: 24px;
+    background: var(--bg); border-radius: 12px;
+    margin: 0 auto 12px;
+  }
+  .phone-header {
+    display: flex; align-items: center; gap: 10px;
+    padding: 0 8px 10px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 8px;
+  }
+  .phone-avatar {
+    width: 32px; height: 32px; border-radius: 50%;
+    background: var(--accent); opacity: 0.2;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 14px; font-weight: 700; color: var(--accent);
+    opacity: 1;
+    font-family: 'JetBrains Mono', monospace;
+  }
+  .phone-contact { font-size: 13px; font-weight: 600; color: var(--text); }
+  .phone-status { font-size: 11px; color: var(--muted); }
+
+  .phone-screen {
+    height: 260px; overflow-y: auto; padding: 8px;
+    display: flex; flex-direction: column; gap: 8px;
+    scrollbar-width: none;
+  }
+  .phone-screen::-webkit-scrollbar { display: none; }
+
+  .msg { display: flex; animation: msgIn 0.25s ease forwards; }
+  .msg.out { justify-content: flex-end; }
+  .msg.in  { justify-content: flex-start; }
+  .msg.system { justify-content: center; }
+
+  .msg-bubble {
+    max-width: 80%; padding: 9px 13px;
+    border-radius: 16px; font-size: 13px; line-height: 1.5;
+    white-space: pre-wrap;
+  }
+  .msg.out .msg-bubble {
+    background: var(--accent); color: #000; font-weight: 500;
+    border-bottom-right-radius: 4px;
+  }
+  .msg.in .msg-bubble {
+    background: var(--surface2); color: var(--text);
+    border: 1px solid var(--border); border-bottom-left-radius: 4px;
+  }
+  .msg.system .msg-bubble {
+    background: transparent; color: var(--accent);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; letter-spacing: 0.5px;
+    border: 1px solid var(--border); border-radius: 6px;
+    padding: 6px 12px; text-align: center;
+  }
+
+  .typing {
+    display: flex; gap: 4px; align-items: center;
+    padding: 10px 14px;
+    background: var(--surface2); border: 1px solid var(--border);
+    border-radius: 16px; border-bottom-left-radius: 4px;
+    width: fit-content;
+  }
+  .typing-dot {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: var(--muted); animation: typingBounce 1.2s infinite;
+  }
+  .typing-dot:nth-child(2) { animation-delay: 0.2s; }
+  .typing-dot:nth-child(3) { animation-delay: 0.4s; }
+
+  /* Demo input */
+  .phone-input-row {
+    display: flex; gap: 8px; padding: 10px 8px 4px;
+    border-top: 1px solid var(--border); margin-top: 8px;
+  }
+  .phone-input {
+    flex: 1; background: var(--surface2);
+    border: 1px solid var(--border); border-radius: 20px;
+    padding: 8px 14px; font-size: 13px; color: var(--text);
+    font-family: 'DM Sans', sans-serif; outline: none;
+    transition: border-color 0.2s;
+  }
+  .phone-input:focus { border-color: var(--accent); }
+  .phone-input::placeholder { color: var(--muted); }
+  .send-btn {
+    width: 34px; height: 34px; border-radius: 50%;
+    background: var(--accent); border: none; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 15px; flex-shrink: 0; transition: background 0.2s, transform 0.15s;
+  }
+  .send-btn:hover { background: var(--accent2); transform: scale(1.05); }
+  .send-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+
+  /* Step tracker */
+  .step-tracker { display: flex; flex-direction: column; gap: 16px; }
+  .step-item {
+    display: flex; gap: 14px; align-items: flex-start;
+    opacity: 0.3; transition: opacity 0.4s;
+  }
+  .step-item.active { opacity: 1; }
+  .step-dot {
+    width: 28px; height: 28px; border-radius: 50%;
+    border: 2px solid var(--border); flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'JetBrains Mono', monospace; font-size: 11px;
+    color: var(--muted); transition: border-color 0.4s, color 0.4s, background 0.4s;
+    margin-top: 2px;
+  }
+  .step-item.active .step-dot {
+    border-color: var(--accent); color: var(--accent);
+    background: var(--tag-bg);
+  }
+  .step-body h4 { font-size: 15px; font-weight: 600; color: var(--text); margin-bottom: 3px; }
+  .step-body p  { font-size: 13px; color: var(--muted); line-height: 1.5; }
+
+  .demo-hint {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; color: var(--muted); margin-top: 20px;
+    letter-spacing: 0.5px;
+  }
+
+  /* ── CALENDAR DEMO ─────────────────────────────── */
+  .cal-wrap { margin-top: 56px; }
+  .cal-shell {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 12px; overflow: hidden;
+    box-shadow: 0 16px 48px rgba(0,0,0,0.3);
+  }
+  .cal-header {
+    background: var(--surface2); border-bottom: 1px solid var(--border);
+    padding: 16px 24px; display: flex; justify-content: space-between; align-items: center;
+  }
+  .cal-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 20px; letter-spacing: 2px; color: var(--text);
+  }
+  .cal-date {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px; color: var(--muted);
+  }
+
+  .cal-body { padding: 8px 0; }
+  .cal-event {
+    display: flex; align-items: center; gap: 16px;
+    padding: 14px 24px; border-bottom: 1px solid var(--border);
+    transition: background 0.3s;
+    position: relative;
+  }
+  .cal-event:last-child { border-bottom: none; }
+  .cal-event.updated { background: rgba(245, 166, 35, 0.05); }
+
+  .cal-time-block { width: 72px; flex-shrink: 0; text-align: right; }
+  .cal-time-old {
+    font-family: 'JetBrains Mono', monospace; font-size: 13px;
+    color: var(--muted); display: block; transition: all 0.4s;
+    position: relative;
+  }
+  .cal-time-old::after {
+    content: '';
+    position: absolute; left: 0; top: 50%;
+    width: 0; height: 1.5px; background: #ef4444;
+    transition: width 0.4s 0.1s;
+  }
+  .cal-event.updated .cal-time-old { color: #ef4444; opacity: 0.7; }
+  .cal-event.updated .cal-time-old::after { width: 100%; }
+
+  .cal-time-new {
+    font-family: 'JetBrains Mono', monospace; font-size: 13px;
+    color: var(--accent); display: block;
+    max-height: 0; overflow: hidden; opacity: 0;
+    transition: max-height 0.4s 0.3s, opacity 0.4s 0.3s;
+  }
+  .cal-event.updated .cal-time-new { max-height: 30px; opacity: 1; }
+
+  .cal-dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    flex-shrink: 0; background: var(--border);
+    transition: background 0.4s;
+  }
+  .cal-event.updated .cal-dot { background: var(--accent); }
+
+  .cal-info { flex: 1; }
+  .cal-name { font-size: 15px; font-weight: 500; color: var(--text); }
+  .cal-detail { font-size: 13px; color: var(--muted); margin-top: 2px; }
+
+  .cal-tag {
+    font-family: 'JetBrains Mono', monospace; font-size: 10px;
+    letter-spacing: 1px; text-transform: uppercase;
+    padding: 3px 8px; border-radius: 3px; flex-shrink: 0;
+    transition: background 0.4s, color 0.4s;
+  }
+  .tag-vip  { background: #1a1230; color: #a855f7; }
+  .tag-job  { background: var(--tag-bg); color: var(--tag-text); }
+  .tag-done { background: rgba(34,197,94,0.12); color: #22c55e; }
+  .tag-auto { background: var(--tag-bg); color: var(--muted); }
+
+  .cal-check {
+    width: 24px; height: 24px; border-radius: 50%;
+    background: transparent; border: 2px solid var(--border);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 11px; color: var(--accent);
+    flex-shrink: 0; transition: all 0.4s;
+    opacity: 0;
+  }
+  .cal-check.show { opacity: 1; border-color: var(--accent); background: var(--tag-bg); }
+
+  .cal-footer {
+    border-top: 1px solid var(--border); padding: 16px 24px;
+    display: flex; justify-content: space-between; align-items: center;
+    flex-wrap: wrap; gap: 12px;
+  }
+  .cal-legend {
+    display: flex; gap: 16px; font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; color: var(--muted);
+  }
+  .legend-item { display: flex; align-items: center; gap: 6px; }
+  .legend-dot { width: 8px; height: 8px; border-radius: 50%; }
+
+  #calBtn {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px; letter-spacing: 1px;
+    padding: 10px 20px; border-radius: 4px;
+    background: var(--tag-bg); color: var(--accent);
+    border: 1px solid var(--accent); cursor: pointer;
+    transition: background 0.2s, transform 0.15s;
+    text-transform: uppercase;
+  }
+  #calBtn:hover { background: var(--accent); color: #000; transform: translateY(-1px); }
+
+  /* ── STAGES ────────────────────────────────────── */
+  .stages { display: flex; flex-direction: column; gap: 2px; margin-top: 48px; }
+  .stage {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 8px; padding: 36px 40px;
+    display: grid; grid-template-columns: 80px 1fr;
+    gap: 32px; align-items: start;
     transition: border-color 0.2s, transform 0.2s;
   }
   .stage:hover { border-color: var(--accent); transform: translateX(4px); }
-
   .stage-num {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 56px;
-    color: var(--accent);
-    line-height: 1;
-    opacity: 0.6;
+    font-family: 'Bebas Neue', sans-serif; font-size: 56px;
+    color: var(--accent); line-height: 1; opacity: 0.6;
   }
-
-  .stage-body {}
-
   .stage-tag {
-    display: inline-block;
-    background: var(--tag-bg);
-    color: var(--tag-text);
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 10px;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    padding: 4px 10px;
-    border-radius: 3px;
-    margin-bottom: 10px;
+    display: inline-block; background: var(--tag-bg); color: var(--tag-text);
+    font-family: 'JetBrains Mono', monospace; font-size: 10px;
+    letter-spacing: 2px; text-transform: uppercase;
+    padding: 4px 10px; border-radius: 3px; margin-bottom: 10px;
   }
-
   .stage h3 {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 32px;
-    letter-spacing: 1px;
-    color: var(--text);
-    margin-bottom: 12px;
+    font-family: 'Bebas Neue', sans-serif; font-size: 32px;
+    letter-spacing: 1px; color: var(--text); margin-bottom: 12px;
   }
-
-  .stage p {
-    font-size: 15px;
-    color: var(--muted);
-    line-height: 1.7;
-    max-width: 480px;
-  }
-
+  .stage p { font-size: 15px; color: var(--muted); line-height: 1.7; max-width: 560px; }
   .stage-features {
-    list-style: none;
-    margin-top: 16px;
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
+    list-style: none; margin-top: 16px;
+    display: flex; flex-direction: column; gap: 6px;
   }
-
   .stage-features li {
-    font-size: 13px;
-    color: var(--muted);
-    display: flex;
-    align-items: center;
-    gap: 8px;
+    font-size: 13px; color: var(--muted);
+    display: flex; align-items: center; gap: 8px;
   }
-  .stage-features li::before {
-    content: '→';
-    color: var(--accent);
-    font-size: 12px;
-    flex-shrink: 0;
-  }
-
-  .stage-price {
-    text-align: right;
-    white-space: nowrap;
-  }
-
-  .price-amount {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 42px;
-    color: var(--accent);
-    line-height: 1;
-    display: block;
-  }
-
-  .price-period {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 11px;
-    color: var(--muted);
-    letter-spacing: 1px;
-  }
-
-  .price-setup {
-    font-size: 12px;
-    color: var(--muted);
-    margin-top: 6px;
-  }
-
+  .stage-features li::before { content: '→'; color: var(--accent); font-size: 12px; flex-shrink: 0; }
   .stage-core { border-left: 3px solid var(--accent); }
 
-  /* ── HOW IT WORKS ─────────────────────────────── */
-  .steps {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 0;
-    margin-top: 48px;
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    overflow: hidden;
-  }
-
-  .step {
-    padding: 36px 28px;
-    border-right: 1px solid var(--border);
-    position: relative;
-  }
-  .step:last-child { border-right: none; }
-
-  .step-num {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 11px;
-    color: var(--accent);
-    letter-spacing: 2px;
-    margin-bottom: 16px;
-  }
-
-  .step h4 {
-    font-family: 'DM Sans', sans-serif;
-    font-weight: 600;
-    font-size: 16px;
-    color: var(--text);
-    margin-bottom: 10px;
-  }
-
-  .step p {
-    font-size: 13px;
-    color: var(--muted);
-    line-height: 1.6;
-  }
-
-  /* ── PRICING TABLE ────────────────────────────── */
-  .pricing-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 24px;
-    margin-top: 48px;
-  }
-
-  .price-card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    padding: 36px 32px;
-    position: relative;
-    transition: border-color 0.2s, transform 0.2s;
-  }
-  .price-card:hover { transform: translateY(-4px); }
-  .price-card.featured {
-    border-color: var(--accent);
-    background: var(--tag-bg);
-  }
-
-  .featured-badge {
-    position: absolute;
-    top: -1px;
-    right: 24px;
-    background: var(--accent);
-    color: #000;
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 10px;
-    font-weight: 700;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    padding: 4px 12px;
-    border-radius: 0 0 6px 6px;
-  }
-
-  .price-card h3 {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 28px;
-    letter-spacing: 1px;
-    color: var(--text);
-    margin-bottom: 8px;
-  }
-
-  .price-card .big-price {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 64px;
-    color: var(--accent);
-    line-height: 1;
-    margin: 16px 0 4px;
-  }
-
-  .price-card .price-sub {
-    font-size: 13px;
-    color: var(--muted);
-    margin-bottom: 24px;
-  }
-
-  .price-card ul {
-    list-style: none;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    margin-bottom: 32px;
-  }
-
-  .price-card ul li {
-    font-size: 14px;
-    color: var(--muted);
-    display: flex;
-    align-items: flex-start;
-    gap: 10px;
-  }
-
-  .price-card ul li .check {
-    color: var(--accent);
-    font-size: 14px;
-    flex-shrink: 0;
-    margin-top: 1px;
-  }
-
-  .price-card .pilot-note {
-    background: var(--tag-bg);
-    border: 1px solid var(--border);
-    border-radius: 4px;
-    padding: 12px 16px;
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 11px;
-    color: var(--accent);
-    letter-spacing: 0.5px;
-    margin-bottom: 24px;
-  }
-
-  /* ── TESTIMONIAL / SOCIAL PROOF ───────────────── */
+  /* ── PROOF ─────────────────────────────────────── */
   .proof {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    padding: 48px;
-    margin-top: 48px;
-    position: relative;
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 8px; padding: 48px; margin-top: 48px; position: relative;
   }
-
   .proof::before {
-    content: '"';
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 160px;
-    color: var(--accent);
-    opacity: 0.08;
-    position: absolute;
-    top: -20px;
-    left: 24px;
-    line-height: 1;
-    pointer-events: none;
+    content: '"'; font-family: 'Bebas Neue', sans-serif;
+    font-size: 160px; color: var(--accent); opacity: 0.08;
+    position: absolute; top: -20px; left: 24px; line-height: 1; pointer-events: none;
   }
-
   .proof-text {
-    font-size: clamp(18px, 2.5vw, 24px);
-    line-height: 1.6;
-    color: var(--text);
-    font-weight: 300;
-    max-width: 700px;
-    position: relative;
-    z-index: 1;
+    font-size: clamp(18px, 2.5vw, 24px); line-height: 1.6;
+    color: var(--text); font-weight: 300; max-width: 700px; position: relative; z-index: 1;
   }
-
   .proof-attr {
-    margin-top: 24px;
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 12px;
-    color: var(--accent);
-    letter-spacing: 1px;
+    margin-top: 24px; font-family: 'JetBrains Mono', monospace;
+    font-size: 12px; color: var(--accent); letter-spacing: 1px;
   }
 
-  /* ── FINAL CTA ────────────────────────────────── */
-  .cta-section {
-    text-align: center;
-    padding: 100px 0;
-  }
+  /* ── CTA ────────────────────────────────────────── */
+  .cta-section { text-align: center; padding: 100px 0; }
+  .cta-section .section-title { font-size: clamp(48px, 8vw, 96px); }
+  .cta-section p { font-size: 18px; color: var(--muted); max-width: 500px; margin: 20px auto 40px; }
 
-  .cta-section .section-title {
-    font-size: clamp(48px, 8vw, 96px);
-  }
-
-  .cta-section p {
-    font-size: 18px;
-    color: var(--muted);
-    max-width: 500px;
-    margin: 20px auto 40px;
-  }
-
-  /* ── FOOTER ───────────────────────────────────── */
+  /* ── FOOTER ────────────────────────────────────── */
   footer {
-    border-top: 1px solid var(--border);
-    padding: 40px 0;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 16px;
+    border-top: 1px solid var(--border); padding: 40px 0;
+    display: flex; justify-content: space-between; align-items: center;
+    flex-wrap: wrap; gap: 16px;
   }
+  .footer-brand { font-family: 'Bebas Neue', sans-serif; font-size: 22px; color: var(--accent); letter-spacing: 2px; }
+  .footer-info { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--muted); letter-spacing: 1px; }
 
-  .footer-brand {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 22px;
-    color: var(--accent);
-    letter-spacing: 2px;
-  }
-
-  .footer-info {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 11px;
-    color: var(--muted);
-    letter-spacing: 1px;
-  }
-
-  /* ── ANIMATIONS ───────────────────────────────── */
+  /* ── ANIMATIONS ────────────────────────────────── */
   @keyframes fadeUp {
     from { opacity: 0; transform: translateY(20px); }
     to   { opacity: 1; transform: translateY(0); }
   }
+  @keyframes msgIn {
+    from { opacity: 0; transform: translateY(6px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes typingBounce {
+    0%, 60%, 100% { transform: translateY(0); }
+    30% { transform: translateY(-5px); }
+  }
 
-  /* ── RESPONSIVE ───────────────────────────────── */
+  /* ── RESPONSIVE ─────────────────────────────────── */
   @media (max-width: 768px) {
-    .stage {
-      grid-template-columns: 1fr;
-      gap: 16px;
-      padding: 28px 24px;
-    }
+    .demo-wrap { grid-template-columns: 1fr; gap: 32px; }
+    .stage { grid-template-columns: 1fr; gap: 16px; padding: 28px 24px; }
     .stage-num { font-size: 40px; }
-    .stage-price { text-align: left; }
-    .steps { grid-template-columns: 1fr; }
-    .step { border-right: none; border-bottom: 1px solid var(--border); }
-    .step:last-child { border-bottom: none; }
     .proof { padding: 32px 28px; }
     footer { flex-direction: column; text-align: center; }
+    .cal-header { flex-direction: column; align-items: flex-start; gap: 4px; }
+    .cal-legend { flex-wrap: wrap; }
   }
 </style>
 </head>
@@ -639,24 +513,22 @@
 
 <!-- THEME SWITCHER -->
 <div class="theme-bar" role="group" aria-label="Theme switcher">
-  <div class="theme-dot dot-amber active" data-theme="amber"  title="Amber"  tabindex="0" role="button" aria-label="Amber theme"></div>
-  <div class="theme-dot dot-green"        data-theme="green"  title="Green"  tabindex="0" role="button" aria-label="Green theme"></div>
-  <div class="theme-dot dot-blue"         data-theme="blue"   title="Blue"   tabindex="0" role="button" aria-label="Blue theme"></div>
-  <div class="theme-dot dot-clean"        data-theme="clean"  title="Clean"  tabindex="0" role="button" aria-label="Clean theme"></div>
+  <div class="theme-dot dot-amber active" data-theme="amber" title="Amber" tabindex="0" role="button"></div>
+  <div class="theme-dot dot-green"        data-theme="green" title="Green" tabindex="0" role="button"></div>
+  <div class="theme-dot dot-blue"         data-theme="blue"  title="Blue"  tabindex="0" role="button"></div>
+  <div class="theme-dot dot-clean"        data-theme="clean" title="Clean" tabindex="0" role="button"></div>
 </div>
 
 <!-- HERO -->
 <section class="hero">
   <div class="container">
     <div class="hero-eyebrow">Forever Vitality Enterprises &nbsp;·&nbsp; BC, Canada</div>
-    <h1 class="hero-headline">
-      Vital<span>Ops.</span>
-    </h1>
-    <p class="hero-sub">AI-powered operations automation for solo and small-crew trades operators. Built for the real world — not a boardroom.</p>
-    <p class="hero-tagline">"We're That Friend. Except we show up on time and send an invoice."</p>
+    <h1 class="hero-headline">Vital<span>Ops.</span></h1>
+    <p class="hero-sub">AI-powered operations for solo and small-crew trades operators. Built for the real world — not a boardroom.</p>
+    <p class="hero-tagline">"You work. We talk."</p>
     <div class="hero-cta-row">
-      <a href="#pricing" class="btn-primary">See Pricing</a>
-      <a href="#how-it-works" class="btn-ghost">How It Works</a>
+      <a href="#demo" class="btn-primary">See It In Action</a>
+      <a href="#stages" class="btn-ghost">What's Included</a>
     </div>
   </div>
 </section>
@@ -696,32 +568,161 @@
 
 <div class="divider"></div>
 
-<!-- HOW IT WORKS -->
-<section id="how-it-works">
+<!-- SMS DEMO -->
+<section id="demo">
   <div class="container">
-    <span class="section-label">The Solution</span>
+    <span class="section-label">Live Demo</span>
     <h2 class="section-title">One text.<br>Everyone's notified.</h2>
-    <p class="section-desc">When a job runs long, you fire off a single WhatsApp message. Vital Ops handles the rest — automatically notifying every client on your schedule.</p>
-    <div class="steps">
-      <div class="step">
-        <div class="step-num">01 / OPERATOR</div>
-        <h4>You Send One Message</h4>
-        <p>Text your delay via WhatsApp: "Running 45 minutes behind." That's it.</p>
+    <p class="section-desc">Type a delay below — or use the placeholder — and watch the automation run. This is exactly what happens on a real job day.</p>
+
+    <div class="demo-wrap">
+      <!-- Phone -->
+      <div>
+        <div class="phone-shell">
+          <div class="phone-notch"></div>
+          <div class="phone-header">
+            <div class="phone-avatar">VO</div>
+            <div>
+              <div class="phone-contact">Vital Ops</div>
+              <div class="phone-status">WhatsApp · Active</div>
+            </div>
+          </div>
+          <div class="phone-screen" id="screen"></div>
+          <div class="phone-input-row">
+            <input class="phone-input" id="demoInput" type="text" placeholder="e.g. Delay 45min" maxlength="60" />
+            <button class="send-btn" id="sendBtn" aria-label="Send">➤</button>
+          </div>
+        </div>
+        <p class="demo-hint" style="text-align:center; margin-top:12px;">↑ Type any delay and hit send</p>
       </div>
-      <div class="step">
-        <div class="step-num">02 / AI</div>
-        <h4>Claude Parses It</h4>
-        <p>The AI reads your message, extracts the delay, and pulls your day's schedule from Google Calendar.</p>
+
+      <!-- Step tracker -->
+      <div class="step-tracker">
+        <div class="step-item" id="step1">
+          <div class="step-dot">01</div>
+          <div class="step-body">
+            <h4>Operator Sends One Message</h4>
+            <p>A single WhatsApp text to Vital Ops. No app to open. No dashboard to log into.</p>
+          </div>
+        </div>
+        <div class="step-item" id="step2">
+          <div class="step-dot">02</div>
+          <div class="step-body">
+            <h4>AI Parses the Delay</h4>
+            <p>Claude reads the message, extracts duration and intent, and confirms it understood correctly.</p>
+          </div>
+        </div>
+        <div class="step-item" id="step3">
+          <div class="step-dot">03</div>
+          <div class="step-body">
+            <h4>Calendar Pulled</h4>
+            <p>Today's schedule is read from Google Calendar. Affected jobs are identified. VIP clients are skipped.</p>
+          </div>
+        </div>
+        <div class="step-item" id="step4">
+          <div class="step-dot">04</div>
+          <div class="step-body">
+            <h4>Personalized SMS Sent</h4>
+            <p>Each client gets a message with their updated time — written by AI, sent by Twilio, sounds like you.</p>
+          </div>
+        </div>
+        <div class="step-item" id="step5">
+          <div class="step-dot">05</div>
+          <div class="step-body">
+            <h4>Confirmation Back to You</h4>
+            <p>You get a summary of who was notified and what times changed. Stay focused on the job.</p>
+          </div>
+        </div>
       </div>
-      <div class="step">
-        <div class="step-num">03 / AUTOMATION</div>
-        <h4>Clients Are Notified</h4>
-        <p>Personalized SMS sent to every affected client. VIP clients can be locked and excluded.</p>
-      </div>
-      <div class="step">
-        <div class="step-num">04 / CONFIRM</div>
-        <h4>You Get a Summary</h4>
-        <p>A confirmation text lands on your phone. You stay focused on the job.</p>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- CALENDAR DEMO -->
+<section id="calendar">
+  <div class="container">
+    <span class="section-label">Calendar View</span>
+    <h2 class="section-title">Your schedule<br>updates itself.</h2>
+    <p class="section-desc">Hit the button below to simulate what a 3-hour delay does to today's calendar. VIP jobs don't move. Everything else cascades.</p>
+
+    <div class="cal-wrap">
+      <div class="cal-shell">
+        <div class="cal-header">
+          <div class="cal-title">TODAY'S SCHEDULE</div>
+          <div class="cal-date" id="calDateDisplay"></div>
+        </div>
+        <div class="cal-body">
+
+          <!-- VIP — locked -->
+          <div class="cal-event" id="ev1">
+            <div class="cal-time-block">
+              <span class="cal-time-old">7:00 AM</span>
+            </div>
+            <div class="cal-dot" style="background:#a855f7;"></div>
+            <div class="cal-info">
+              <div class="cal-name">Thompson Site Prep</div>
+              <div class="cal-detail">Excavation · +1 (604) 555-0104</div>
+            </div>
+            <span class="cal-tag tag-vip">📌 VIP</span>
+            <div class="cal-check"></div>
+          </div>
+
+          <!-- Job 2 -->
+          <div class="cal-event" id="ev2">
+            <div class="cal-time-block">
+              <span class="cal-time-old" id="ev2-old">9:00 AM</span>
+              <span class="cal-time-new" id="ev2-new">12:00 PM</span>
+            </div>
+            <div class="cal-dot" id="ev2-dot"></div>
+            <div class="cal-info">
+              <div class="cal-name">Patterson Plumbing Quote</div>
+              <div class="cal-detail">Plumbing · +1 (604) 555-0101</div>
+            </div>
+            <span class="cal-tag tag-job" id="ev2-tag">Job</span>
+            <div class="cal-check" id="ev2-check"></div>
+          </div>
+
+          <!-- Job 3 -->
+          <div class="cal-event" id="ev3">
+            <div class="cal-time-block">
+              <span class="cal-time-old" id="ev3-old">11:30 AM</span>
+              <span class="cal-time-new" id="ev3-new">2:30 PM</span>
+            </div>
+            <div class="cal-dot" id="ev3-dot"></div>
+            <div class="cal-info">
+              <div class="cal-name">Henderson Grading Work</div>
+              <div class="cal-detail">Excavation · +1 (604) 555-0102</div>
+            </div>
+            <span class="cal-tag tag-job" id="ev3-tag">Job</span>
+            <div class="cal-check" id="ev3-check"></div>
+          </div>
+
+          <!-- Job 4 -->
+          <div class="cal-event" id="ev4">
+            <div class="cal-time-block">
+              <span class="cal-time-old" id="ev4-old">2:00 PM</span>
+              <span class="cal-time-new" id="ev4-new">5:00 PM</span>
+            </div>
+            <div class="cal-dot" id="ev4-dot"></div>
+            <div class="cal-info">
+              <div class="cal-name">McAllister Final Grade</div>
+              <div class="cal-detail">Grading · +1 (604) 555-0103</div>
+            </div>
+            <span class="cal-tag tag-job" id="ev4-tag">Job</span>
+            <div class="cal-check" id="ev4-check"></div>
+          </div>
+
+        </div>
+        <div class="cal-footer">
+          <div class="cal-legend">
+            <div class="legend-item"><div class="legend-dot" style="background:#a855f7;"></div> VIP — locked</div>
+            <div class="legend-item"><div class="legend-dot" style="background:var(--accent);"></div> Notified</div>
+            <div class="legend-item"><div class="legend-dot" style="background:var(--border);"></div> Pending</div>
+          </div>
+          <button id="calBtn">Simulate Delay 3hrs</button>
+        </div>
       </div>
     </div>
   </div>
@@ -732,30 +733,26 @@
 <!-- STAGES -->
 <section id="stages">
   <div class="container">
-    <span class="section-label">Product Stages</span>
+    <span class="section-label">What's Included</span>
     <h2 class="section-title">Start with<br>what hurts most.</h2>
-    <p class="section-desc">Stage 1 is the core — it runs standalone and solves the felt pain immediately. Stages 2 and 3 bolt on when you're ready.</p>
+    <p class="section-desc">Stage 1 solves the immediate pain. Stages 2 and 3 bolt on when you're ready to go deeper.</p>
     <div class="stages">
 
       <div class="stage stage-core">
         <div class="stage-num">01</div>
         <div class="stage-body">
           <span class="stage-tag">Core — Start Here</span>
-          <h3>Client Comms</h3>
-          <p>Automated delay notifications, schedule management, and client communication — handled while you work.</p>
+          <h3>Client Comms Autopilot</h3>
+          <p>Automated delay notifications, schedule management, and client communication — handled while you work. One WhatsApp message triggers everything.</p>
           <ul class="stage-features">
-            <li>Delay cascade notifications via SMS</li>
-            <li>VIP client pin-lock (excluded from auto-notifications)</li>
+            <li>Delay cascade SMS notifications</li>
+            <li>VIP client pin-lock — excluded from auto-notifications</li>
             <li>Post-call text command booking</li>
             <li>Inbound client SMS auto-parse to calendar</li>
             <li>Availability check via text</li>
             <li>Spouse / family calendar integration</li>
+            <li>Google review response management</li>
           </ul>
-        </div>
-        <div class="stage-price">
-          <span class="price-amount">$400</span>
-          <span class="price-period">/month</span>
-          <div class="price-setup">$500 setup fee</div>
         </div>
       </div>
 
@@ -764,17 +761,13 @@
         <div class="stage-body">
           <span class="stage-tag">Bolt-On</span>
           <h3>Your Own AI</h3>
-          <p>Full Claude AI account setup with route planning, material sourcing, and job costing assistance.</p>
+          <p>Full Claude AI account setup with route planning, material sourcing, and job costing assistance built specifically for how you work.</p>
           <ul class="stage-features">
             <li>Dedicated Claude AI account setup</li>
             <li>Route optimization</li>
             <li>Material sourcing assistance</li>
-            <li>Optional $150/mo maintenance</li>
+            <li>Job costing and estimating help</li>
           </ul>
-        </div>
-        <div class="stage-price">
-          <span class="price-amount">$800</span>
-          <span class="price-period">one-time</span>
         </div>
       </div>
 
@@ -782,8 +775,8 @@
         <div class="stage-num">03</div>
         <div class="stage-body">
           <span class="stage-tag">Bolt-On</span>
-          <h3>Full Stack</h3>
-          <p>Deep integrations with the tools you already use — bridging your ops into one connected system.</p>
+          <h3>Full Stack Integrations</h3>
+          <p>Deep connections to the tools you already use — Jobber, QuickBooks, Trello, ServiceTitan — bridged into one connected ops system.</p>
           <ul class="stage-features">
             <li>Jobber integration</li>
             <li>QuickBooks sync</li>
@@ -791,54 +784,6 @@
             <li>ServiceTitan integration</li>
           </ul>
         </div>
-        <div class="stage-price">
-          <span class="price-amount">TBD</span>
-          <span class="price-period">custom</span>
-        </div>
-      </div>
-
-    </div>
-  </div>
-</section>
-
-<div class="divider"></div>
-
-<!-- PRICING -->
-<section id="pricing">
-  <div class="container">
-    <span class="section-label">Pricing</span>
-    <h2 class="section-title">Simple.<br>No surprises.</h2>
-    <p class="section-desc">One monthly rate. No per-message fees, no hidden costs. Pilot pricing available for early operators.</p>
-    <div class="pricing-grid">
-
-      <div class="price-card featured">
-        <div class="featured-badge">Pilot Offer</div>
-        <h3>Stage 1 — Pilot</h3>
-        <div class="big-price">$150</div>
-        <div class="price-sub">/month for 3 months — then $400/mo</div>
-        <div class="pilot-note">⚡ Limited spots · BC operators only</div>
-        <ul>
-          <li><span class="check">✓</span> Full Stage 1 feature set</li>
-          <li><span class="check">✓</span> Onboarding &amp; setup included</li>
-          <li><span class="check">✓</span> Direct support during pilot</li>
-          <li><span class="check">✓</span> Lock in early-adopter rate</li>
-        </ul>
-        <a href="mailto:angelmiralda@proton.me?subject=Vital Ops Pilot" class="btn-primary" style="width:100%; text-align:center;">Apply for Pilot</a>
-      </div>
-
-      <div class="price-card">
-        <h3>Stage 1 — Standard</h3>
-        <div class="big-price">$400</div>
-        <div class="price-sub">/month · $500 setup fee</div>
-        <ul>
-          <li><span class="check">✓</span> Delay cascade notifications</li>
-          <li><span class="check">✓</span> VIP client pin-locking</li>
-          <li><span class="check">✓</span> Calendar &amp; schedule management</li>
-          <li><span class="check">✓</span> Text command booking</li>
-          <li><span class="check">✓</span> Family calendar integration</li>
-          <li><span class="check">✓</span> Ongoing support</li>
-        </ul>
-        <a href="mailto:angelmiralda@proton.me?subject=Vital Ops Inquiry" class="btn-ghost" style="width:100%; text-align:center;">Get Started</a>
       </div>
 
     </div>
@@ -860,14 +805,14 @@
 
 <div class="divider"></div>
 
-<!-- FINAL CTA -->
+<!-- CTA -->
 <section class="cta-section">
   <div class="container">
     <h2 class="section-title">Ready to stop<br>losing jobs to bad comms?</h2>
-    <p>Pilot spots are limited to BC operators. Get in early while onboarding is hands-on and personal.</p>
+    <p>We're taking on a small number of pilot operators in BC. Onboarding is hands-on and personal. No contract.</p>
     <div class="hero-cta-row" style="justify-content:center;">
-      <a href="mailto:angelmiralda@proton.me?subject=Vital Ops Pilot" class="btn-primary">Apply for Pilot — $150/mo</a>
-      <a href="mailto:angelmiralda@proton.me" class="btn-ghost">Ask a Question</a>
+      <a href="mailto:hello@vitalopsai.ca" class="btn-primary">Get In Touch</a>
+      <a href="mailto:hello@vitalopsai.ca" class="btn-ghost">Ask a Question</a>
     </div>
   </div>
 </section>
@@ -876,46 +821,186 @@
 <div class="container">
   <footer>
     <div class="footer-brand">VITAL OPS</div>
-    <div class="footer-info">Forever Vitality Enterprises &nbsp;·&nbsp; Blind Bay, BC &nbsp;·&nbsp; angelmiralda@proton.me</div>
+    <div class="footer-info">Forever Vitality Enterprises &nbsp;·&nbsp; Blind Bay, BC &nbsp;·&nbsp; <a href="mailto:hello@vitalopsai.ca">hello@vitalopsai.ca</a></div>
   </footer>
 </div>
 
-<!-- THEME SCRIPT -->
 <script>
-  (function() {
-    var body = document.body;
-    var dots = document.querySelectorAll('.theme-dot');
-
-    function setTheme(theme) {
-      body.setAttribute('data-theme', theme);
-      dots.forEach(function(d) {
-        d.classList.toggle('active', d.getAttribute('data-theme') === theme);
-      });
-    }
-
-    dots.forEach(function(dot) {
-      // Pointer event (desktop + most mobile)
-      dot.addEventListener('pointerup', function(e) {
-        e.preventDefault();
-        setTheme(this.getAttribute('data-theme'));
-        setTimeout(function() { dot.blur(); }, 100);
-      });
-      // Fallback touch for older iOS
-      dot.addEventListener('touchend', function(e) {
-        e.preventDefault();
-        setTheme(this.getAttribute('data-theme'));
-        setTimeout(function() { dot.blur(); }, 100);
-      });
-      // Keyboard accessibility
-      dot.addEventListener('keydown', function(e) {
-        if (e.key === 'Enter' || e.key === ' ') {
-          e.preventDefault();
-          setTheme(this.getAttribute('data-theme'));
-        }
-      });
+// ── THEME SWITCHER ─────────────────────────────────
+(function() {
+  var body = document.body;
+  var dots = document.querySelectorAll('.theme-dot');
+  function setTheme(theme) {
+    body.setAttribute('data-theme', theme);
+    dots.forEach(function(d) {
+      d.classList.toggle('active', d.getAttribute('data-theme') === theme);
     });
-  })();
-</script>
+  }
+  dots.forEach(function(dot) {
+    dot.addEventListener('pointerup', function(e) {
+      e.preventDefault();
+      setTheme(this.getAttribute('data-theme'));
+    });
+    dot.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setTheme(this.getAttribute('data-theme')); }
+    });
+  });
+})();
 
-</body>
-</html>
+// ── CALENDAR DATE ──────────────────────────────────
+(function() {
+  var d = new Date();
+  var days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+  var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  document.getElementById('calDateDisplay').textContent =
+    days[d.getDay()] + ' · ' + months[d.getMonth()] + ' ' + d.getDate() + ', ' + d.getFullYear();
+})();
+
+// ── SMS DEMO ───────────────────────────────────────
+var demoRunning = false;
+
+function addMsg(screen, type, text, delay) {
+  return new Promise(function(resolve) {
+    setTimeout(function() {
+      var msg = document.createElement('div');
+      msg.className = 'msg ' + type;
+      msg.innerHTML = '<div><div class="msg-bubble">' + text + '</div></div>';
+      screen.appendChild(msg);
+      screen.scrollTop = screen.scrollHeight;
+      resolve();
+    }, delay);
+  });
+}
+
+function addTyping(screen, delay) {
+  return new Promise(function(resolve) {
+    setTimeout(function() {
+      var t = document.createElement('div');
+      t.className = 'msg in';
+      t.id = 'typing-indicator';
+      t.innerHTML = '<div><div class="typing"><div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div></div></div>';
+      screen.appendChild(t);
+      screen.scrollTop = screen.scrollHeight;
+      resolve(t);
+    }, delay);
+  });
+}
+
+function removeTyping() {
+  var t = document.getElementById('typing-indicator');
+  if (t) t.remove();
+}
+
+function activateStep(id) {
+  var el = document.getElementById(id);
+  if (el) el.classList.add('active');
+}
+
+function wait(ms) { return new Promise(function(r) { setTimeout(r, ms); }); }
+
+async function runDemo() {
+  if (demoRunning) return;
+  var input  = document.getElementById('demoInput');
+  var screen = document.getElementById('screen');
+  var btn    = document.getElementById('sendBtn');
+  var val    = input.value.trim() || 'Delay 45min';
+
+  var match  = val.match(/(\d+)\s*(hr|hrs|hour|hours|min|mins|minute|minutes)/i);
+  var amount = match ? parseInt(match[1]) : 45;
+  var isHr   = match ? !match[2].toLowerCase().startsWith('m') : false;
+  var label  = isHr ? (amount === 1 ? 'hour' : 'hours') : 'minutes';
+
+  // Reset steps
+  ['step1','step2','step3','step4','step5'].forEach(function(s) {
+    var el = document.getElementById(s);
+    if (el) el.classList.remove('active');
+  });
+
+  demoRunning = true;
+  btn.disabled = true;
+  input.value = '';
+  input.blur();
+
+  // Clear previous messages except initial
+  screen.innerHTML = '';
+
+  // Calculate new times based on delay
+  var delayMins = isHr ? amount * 60 : amount;
+  function addMins(baseHr, baseMins, delta) {
+    var total = baseHr * 60 + baseMins + delta;
+    var h = Math.floor(total / 60) % 24;
+    var m = total % 60;
+    var ampm = h >= 12 ? 'PM' : 'AM';
+    var displayH = h % 12 || 12;
+    var displayM = m === 0 ? '00' : (m < 10 ? '0' + m : m);
+    return displayH + ':' + displayM + ' ' + ampm;
+  }
+  var t1 = addMins(9,  0, delayMins);
+  var t2 = addMins(11, 30, delayMins);
+  var t3 = addMins(14, 0, delayMins);
+
+  await addMsg(screen, 'out', val, 0);
+  activateStep('step1');
+
+  await addTyping(screen, 500);
+  activateStep('step2');
+  await wait(1000);
+  removeTyping();
+
+  await addMsg(screen, 'system', '⚡ Parsed: ' + amount + ' ' + label + ' delay · Reading calendar...', 0);
+  await wait(400);
+  await addMsg(screen, 'system', '📅 Found 3 affected jobs · Thompson (VIP) locked', 400);
+  activateStep('step3');
+
+  await wait(600);
+  await addTyping(screen, 0);
+  activateStep('step4');
+  await wait(1000);
+  removeTyping();
+
+  await addMsg(screen, 'system', '📤 Patterson → "Running ' + amount + ' ' + label + ' behind. New time: ' + t1 + '"', 0);
+  await addMsg(screen, 'system', '📤 Henderson → "Pushing your appointment to ' + t2 + ' today."', 500);
+  await addMsg(screen, 'system', '📤 McAllister → "Your start shifts to ' + t3 + '. Everything still on."', 1000);
+
+  await wait(1200);
+  await addMsg(screen, 'in',
+    '✅ Done. 3 clients notified.\n\nPatterson → ' + t1 + '\nHenderson → ' + t2 + '\nMcAllister → ' + t3 + '\n\nThompson (VIP) unchanged.',
+    0
+  );
+  activateStep('step5');
+
+  demoRunning = false;
+  btn.disabled = false;
+}
+
+document.getElementById('sendBtn').addEventListener('click', runDemo);
+document.getElementById('demoInput').addEventListener('keydown', function(e) {
+  if (e.key === 'Enter') runDemo();
+});
+
+// ── CALENDAR DEMO ──────────────────────────────────
+var calUpdated = false;
+
+function triggerCalUpdate() {
+  var btn = document.getElementById('calBtn');
+
+  if (calUpdated) {
+    // Reset
+    ['ev2','ev3','ev4'].forEach(function(id) {
+      document.getElementById(id).classList.remove('updated');
+      document.getElementById(id + '-old').classList.remove('strike'); // unused but safe
+      var tagEl = document.getElementById(id + '-tag');
+      tagEl.textContent = 'Job'; tagEl.className = 'cal-tag tag-job';
+      var chk = document.getElementById(id + '-check');
+      chk.textContent = ''; chk.classList.remove('show');
+    });
+    btn.textContent = 'Simulate Delay 3hrs';
+    calUpdated = false;
+    return;
+  }
+
+  ['ev2','ev3','ev4'].forEach(function(id, i) {
+    setTimeout(function() {
+      document.getElementById(id).classList.add('updated');
+      var tagEl = document.getElementById(id + '-tag');
+      tagEl.textContent = 'Updated ✓'; tagEl.className = 'cal-tag ta
