@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Privacy Policy — Vital Ops</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300&family=JetBrains+Mono:wght@400;700&display=swap');
+
+  :root {
+    --bg:       #0d0d0d;
+    --surface:  #161616;
+    --surface2: #1e1e1e;
+    --border:   #2a2a2a;
+    --accent:   #f5a623;
+    --accent2:  #d4891a;
+    --text:     #f0ece4;
+    --muted:    #888;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 16px;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  body::before {
+    content: '';
+    position: fixed; inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none; z-index: 0; opacity: 0.4;
+  }
+
+  .container {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 0 24px;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* NAV */
+  nav {
+    padding: 28px 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 64px;
+  }
+
+  .nav-brand {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 24px;
+    letter-spacing: 2px;
+    color: var(--text);
+    text-decoration: none;
+  }
+
+  .nav-brand span { color: var(--accent); }
+
+  .nav-back {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 1px;
+    color: var(--muted);
+    text-decoration: none;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 2px;
+    transition: color 0.2s, border-color 0.2s;
+  }
+
+  .nav-back:hover { color: var(--accent); border-color: var(--accent); }
+
+  /* CONTENT */
+  .page-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 16px;
+  }
+
+  h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(42px, 8vw, 64px);
+    line-height: 1;
+    letter-spacing: 1px;
+    margin-bottom: 12px;
+  }
+
+  .effective-date {
+    font-size: 13px;
+    color: var(--muted);
+    font-family: 'JetBrains Mono', monospace;
+    margin-bottom: 48px;
+    padding-bottom: 48px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  h2 {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--text);
+    margin: 48px 0 16px;
+  }
+
+  h2::before {
+    content: '//';
+    color: var(--accent);
+    margin-right: 10px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 14px;
+  }
+
+  p {
+    color: var(--muted);
+    margin-bottom: 16px;
+    font-size: 16px;
+  }
+
+  ul {
+    list-style: none;
+    margin: 0 0 16px 0;
+    padding: 0;
+  }
+
+  ul li {
+    color: var(--muted);
+    font-size: 16px;
+    padding: 6px 0 6px 20px;
+    position: relative;
+  }
+
+  ul li::before {
+    content: '→';
+    color: var(--accent);
+    position: absolute;
+    left: 0;
+    font-size: 13px;
+  }
+
+  .highlight-box {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--accent);
+    border-radius: 4px;
+    padding: 20px 24px;
+    margin: 24px 0;
+  }
+
+  .highlight-box p {
+    margin: 0;
+    color: var(--text);
+    font-size: 15px;
+  }
+
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+
+  /* FOOTER */
+  .page-footer {
+    margin-top: 80px;
+    padding: 40px 0;
+    border-top: 1px solid var(--border);
+    text-align: center;
+  }
+
+  .footer-brand {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 20px;
+    letter-spacing: 2px;
+    margin-bottom: 12px;
+  }
+
+  .footer-info {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 2;
+  }
+
+  .footer-info a { color: var(--muted); border-bottom: 1px solid var(--border); }
+  .footer-info a:hover { color: var(--accent); border-color: var(--accent); text-decoration: none; }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <nav>
+    <a href="/vital-ops/" class="nav-brand">VITAL <span>OPS</span></a>
+    <a href="/vital-ops/" class="nav-back">← Back to site</a>
+  </nav>
+
+  <div class="page-label">Legal</div>
+  <h1>Privacy Policy</h1>
+  <div class="effective-date">Effective Date: April 2026 &nbsp;·&nbsp; Forever Vitality Enterprises &nbsp;·&nbsp; Blind Bay, BC, Canada</div>
+
+  <div class="highlight-box">
+    <p>Vital Ops is operated by Forever Vitality Enterprises. We take your privacy seriously. This policy explains what information we collect, how we use it, and your rights under BC's Personal Information Protection Act (PIPA).</p>
+  </div>
+
+  <h2>Who We Are</h2>
+  <p>Vital Ops is a client communication automation service for trades operators, operated by Forever Vitality Enterprises, based in Blind Bay, British Columbia, Canada. We can be reached at <a href="mailto:hello@vitalopsai.ca">hello@vitalopsai.ca</a>.</p>
+
+  <h2>What Information We Collect</h2>
+  <p>We collect the following information from our clients (trades operators) as part of providing the Vital Ops service:</p>
+  <ul>
+    <li>Business name and operator name</li>
+    <li>Operator phone number (used as the WhatsApp trigger)</li>
+    <li>Operator email address</li>
+    <li>Client contact names and phone numbers (provided by the operator during setup)</li>
+    <li>Google Calendar access (read-only, scoped to job scheduling only)</li>
+  </ul>
+  <p>We do not collect payment card information directly. Billing is handled through third-party processors.</p>
+  <p>We do not collect information from end clients (the people who receive SMS notifications). End client phone numbers are provided by the operator and used solely to deliver notifications on the operator's behalf.</p>
+
+  <h2>How We Use This Information</h2>
+  <ul>
+    <li>To provide the Vital Ops delay notification and scheduling service</li>
+    <li>To communicate with operators about their account and service updates</li>
+    <li>To send SMS notifications to end clients on the operator's behalf</li>
+    <li>To maintain and improve the service</li>
+  </ul>
+  <p>We do not sell, share, or disclose personal information to third parties except as required to deliver the service — specifically SMS delivery via Twilio and calendar access via Google.</p>
+
+  <h2>SMS Communications</h2>
+  <p>Vital Ops sends SMS messages to end clients on behalf of trades operators. These messages are transactional in nature — they notify clients of schedule changes, delays, or updates related to a booked appointment. By using Vital Ops, operators confirm they have obtained any necessary consent from their clients to receive SMS communications from their business.</p>
+  <p>Message frequency varies based on operator activity. Standard message and data rates may apply to recipients. Recipients may reply STOP to opt out of future messages from that operator's number.</p>
+
+  <h2>Third-Party Services</h2>
+  <p>Vital Ops uses the following third-party services to deliver its functionality:</p>
+  <ul>
+    <li><strong style="color:var(--text);">Twilio</strong> — SMS delivery infrastructure</li>
+    <li><strong style="color:var(--text);">Google</strong> — Calendar access and data storage (Sheets)</li>
+    <li><strong style="color:var(--text);">Anthropic (Claude AI)</strong> — Message parsing and generation</li>
+    <li><strong style="color:var(--text);">Make.com</strong> — Workflow automation</li>
+  </ul>
+  <p>Each of these providers maintains their own privacy and security standards. Client data is not shared beyond what is required for service delivery.</p>
+
+  <h2>Data Storage and Security</h2>
+  <p>Client contact data is stored in a Google Sheet accessible only to the operator and Vital Ops. We take reasonable steps to protect this data from unauthorized access. All data is stored within systems that comply with industry-standard security practices.</p>
+  <p>We do not store SMS message content beyond what is required to confirm delivery.</p>
+
+  <h2>Your Rights Under BC PIPA</h2>
+  <p>Under the Personal Information Protection Act (PIPA, BC), you have the right to:</p>
+  <ul>
+    <li>Know what personal information we hold about you</li>
+    <li>Request access to your personal information</li>
+    <li>Request correction of inaccurate information</li>
+    <li>Withdraw consent for use of your personal information</li>
+    <li>Request deletion of your data upon cancellation</li>
+  </ul>
+  <p>To exercise any of these rights, contact us at <a href="mailto:hello@vitalopsai.ca">hello@vitalopsai.ca</a>. We will respond within 30 days.</p>
+
+  <h2>Data Retention</h2>
+  <p>We retain client and contact information for the duration of the service relationship. Upon cancellation, all personal data is deleted within 30 days of the final service date.</p>
+
+  <h2>Changes to This Policy</h2>
+  <p>We may update this Privacy Policy from time to time. We will notify active clients by email at least 14 days before any material changes take effect. The effective date at the top of this page will reflect the most recent update.</p>
+
+  <h2>Contact Us</h2>
+  <p>For any privacy-related questions or requests:</p>
+  <div class="highlight-box">
+    <p>Forever Vitality Enterprises<br>Blind Bay, BC, Canada<br><a href="mailto:hello@vitalopsai.ca">hello@vitalopsai.ca</a></p>
+  </div>
+
+  <footer class="page-footer">
+    <div class="footer-brand">VITAL OPS</div>
+    <div class="footer-info">
+      Forever Vitality Enterprises &nbsp;·&nbsp; Blind Bay, BC &nbsp;·&nbsp;
+      <a href="mailto:hello@vitalopsai.ca">hello@vitalopsai.ca</a><br>
+      <a href="/vital-ops/">Home</a> &nbsp;·&nbsp;
+      <a href="/vital-ops/privacy-policy.html">Privacy Policy</a> &nbsp;·&nbsp;
+      <a href="/vital-ops/terms.html">Terms of Service</a>
+    </div>
+  </footer>
+</div>
+
+</body>
+</html>

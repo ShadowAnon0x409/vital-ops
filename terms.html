@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Terms of Service — Vital Ops</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300&family=JetBrains+Mono:wght@400;700&display=swap');
+
+  :root {
+    --bg:       #0d0d0d;
+    --surface:  #161616;
+    --surface2: #1e1e1e;
+    --border:   #2a2a2a;
+    --accent:   #f5a623;
+    --accent2:  #d4891a;
+    --text:     #f0ece4;
+    --muted:    #888;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 16px;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  body::before {
+    content: '';
+    position: fixed; inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none; z-index: 0; opacity: 0.4;
+  }
+
+  .container {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 0 24px;
+    position: relative;
+    z-index: 1;
+  }
+
+  nav {
+    padding: 28px 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 64px;
+  }
+
+  .nav-brand {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 24px;
+    letter-spacing: 2px;
+    color: var(--text);
+    text-decoration: none;
+  }
+
+  .nav-brand span { color: var(--accent); }
+
+  .nav-back {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 1px;
+    color: var(--muted);
+    text-decoration: none;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 2px;
+    transition: color 0.2s, border-color 0.2s;
+  }
+
+  .nav-back:hover { color: var(--accent); border-color: var(--accent); }
+
+  .page-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 16px;
+  }
+
+  h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(42px, 8vw, 64px);
+    line-height: 1;
+    letter-spacing: 1px;
+    margin-bottom: 12px;
+  }
+
+  .effective-date {
+    font-size: 13px;
+    color: var(--muted);
+    font-family: 'JetBrains Mono', monospace;
+    margin-bottom: 48px;
+    padding-bottom: 48px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  h2 {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--text);
+    margin: 48px 0 16px;
+  }
+
+  h2::before {
+    content: '//';
+    color: var(--accent);
+    margin-right: 10px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 14px;
+  }
+
+  p {
+    color: var(--muted);
+    margin-bottom: 16px;
+    font-size: 16px;
+  }
+
+  ul {
+    list-style: none;
+    margin: 0 0 16px 0;
+    padding: 0;
+  }
+
+  ul li {
+    color: var(--muted);
+    font-size: 16px;
+    padding: 6px 0 6px 20px;
+    position: relative;
+  }
+
+  ul li::before {
+    content: '→';
+    color: var(--accent);
+    position: absolute;
+    left: 0;
+    font-size: 13px;
+  }
+
+  .highlight-box {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--accent);
+    border-radius: 4px;
+    padding: 20px 24px;
+    margin: 24px 0;
+  }
+
+  .highlight-box p { margin: 0; color: var(--text); font-size: 15px; }
+
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+
+  .page-footer {
+    margin-top: 80px;
+    padding: 40px 0;
+    border-top: 1px solid var(--border);
+    text-align: center;
+  }
+
+  .footer-brand {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 20px;
+    letter-spacing: 2px;
+    margin-bottom: 12px;
+  }
+
+  .footer-info {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 2;
+  }
+
+  .footer-info a { color: var(--muted); border-bottom: 1px solid var(--border); }
+  .footer-info a:hover { color: var(--accent); border-color: var(--accent); text-decoration: none; }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <nav>
+    <a href="/vital-ops/" class="nav-brand">VITAL <span>OPS</span></a>
+    <a href="/vital-ops/" class="nav-back">← Back to site</a>
+  </nav>
+
+  <div class="page-label">Legal</div>
+  <h1>Terms of Service</h1>
+  <div class="effective-date">Effective Date: April 2026 &nbsp;·&nbsp; Last Updated: April 2026 &nbsp;·&nbsp; Forever Vitality Enterprises</div>
+
+  <div class="highlight-box">
+    <p>Plain language first: Vital Ops is a done-for-you service. We set it up, we maintain it, you use it. These terms explain what we're each responsible for.</p>
+  </div>
+
+  <h2>Who We Are</h2>
+  <p>Vital Ops is operated by Forever Vitality Enterprises, based in Blind Bay, British Columbia, Canada. By using Vital Ops, you agree to these Terms of Service. Questions? Email us at <a href="mailto:hello@vitalopsai.ca">hello@vitalopsai.ca</a>.</p>
+
+  <h2>What We Provide</h2>
+  <p>Vital Ops is a client communication automation service for solo and small-crew trades operators. The service includes:</p>
+  <ul>
+    <li>Automated SMS delay notifications triggered by a WhatsApp message from the operator</li>
+    <li>Google Calendar integration for schedule-aware notifications</li>
+    <li>VIP client pin-lock (excluded from automated notifications)</li>
+    <li>Initial system setup and onboarding</li>
+    <li>Ongoing system maintenance</li>
+  </ul>
+  <p>Additional features may be added over time. We will notify active clients of new features via email.</p>
+
+  <h2>Your Responsibilities</h2>
+  <p>As a Vital Ops client, you agree to:</p>
+  <ul>
+    <li>Maintain an accurate Google Calendar reflecting your job schedule</li>
+    <li>Keep your client contact list up to date</li>
+    <li>Obtain any necessary consent from your clients to receive SMS communications from your business</li>
+    <li>Use the service only for legitimate business communication purposes</li>
+    <li>Not use Vital Ops for spam, unsolicited marketing, or any unlawful purpose</li>
+    <li>Notify us promptly of any changes to your business information</li>
+  </ul>
+
+  <h2>SMS Messaging Compliance</h2>
+  <p>Vital Ops sends SMS messages on your behalf to your clients. You are responsible for ensuring your clients have consented to receive text messages from your business. By using the service, you confirm that you have obtained this consent.</p>
+  <p>All messages sent through Vital Ops are transactional — they relate directly to booked appointments and schedule changes. We do not send marketing or promotional messages on your behalf.</p>
+  <p>Recipients may reply STOP to opt out. We will honour all opt-out requests promptly.</p>
+
+  <h2>Billing and Cancellation</h2>
+  <ul>
+    <li>Vital Ops is billed monthly. No contracts. No setup fees.</li>
+    <li>Cancel anytime by emailing <a href="mailto:hello@vitalopsai.ca">hello@vitalopsai.ca</a></li>
+    <li>Cancellations are confirmed within 24 hours</li>
+    <li>No charges will be made after cancellation is confirmed</li>
+    <li>We do not offer refunds for partial months already billed</li>
+  </ul>
+
+  <h2>Limitations of Liability</h2>
+  <p>Vital Ops is provided as-is. We make every effort to maintain reliable, uninterrupted service. However, we are not liable for:</p>
+  <ul>
+    <li>Missed or delayed notifications due to third-party service outages (Twilio, Google, Make.com)</li>
+    <li>Inaccurate notifications resulting from incorrect calendar data provided by the operator</li>
+    <li>Any business losses arising from service interruptions</li>
+    <li>Actions taken by clients based on received notifications</li>
+  </ul>
+  <p>Our total liability to you for any claim arising from use of Vital Ops shall not exceed the total fees paid by you in the 30 days preceding the claim.</p>
+
+  <h2>Intellectual Property</h2>
+  <p>The Vital Ops system, workflows, and software are the property of Forever Vitality Enterprises. Your client data and calendar information remain yours at all times. We do not claim ownership of any data you provide.</p>
+
+  <h2>Changes to These Terms</h2>
+  <p>We may update these Terms from time to time. We will notify active clients by email at least 14 days before any material changes take effect. Continued use of the service after the effective date constitutes acceptance of the updated Terms.</p>
+
+  <h2>Governing Law</h2>
+  <p>These Terms are governed by the laws of the Province of British Columbia and the federal laws of Canada applicable therein. Any disputes shall be resolved in the courts of British Columbia.</p>
+
+  <h2>Contact</h2>
+  <div class="highlight-box">
+    <p>Forever Vitality Enterprises<br>Blind Bay, BC, Canada<br><a href="mailto:hello@vitalopsai.ca">hello@vitalopsai.ca</a></p>
+  </div>
+
+  <footer class="page-footer">
+    <div class="footer-brand">VITAL OPS</div>
+    <div class="footer-info">
+      Forever Vitality Enterprises &nbsp;·&nbsp; Blind Bay, BC &nbsp;·&nbsp;
+      <a href="mailto:hello@vitalopsai.ca">hello@vitalopsai.ca</a><br>
+      <a href="/vital-ops/">Home</a> &nbsp;·&nbsp;
+      <a href="/vital-ops/privacy-policy.html">Privacy Policy</a> &nbsp;·&nbsp;
+      <a href="/vital-ops/terms.html">Terms of Service</a>
+    </div>
+  </footer>
+</div>
+
+</body>
+</html>
